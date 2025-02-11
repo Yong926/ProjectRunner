@@ -615,7 +615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackPrefab: {fileID: 7508963008922167121, guid: ccdf6816e746bc14dbd3ec31d35f99b1, type: 3}
   scrollSpeed: 20
-  trackCount: 5
+  trackCount: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

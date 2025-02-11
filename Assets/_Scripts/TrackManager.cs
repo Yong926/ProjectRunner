@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class TrackManager : MonoBehaviour
 {
@@ -17,34 +17,28 @@ public class TrackManager : MonoBehaviour
 
     void Update()
     {
-        ScrollTrack();
         RepositionTrack();
     }
 
-    // 초기 트랙 생성 (한번만 실행)
     void SpawnInitialTrack()
     {
-        Track track = null;
+        Vector3 position = Vector3.zero;
 
         for (int i = 0; i < trackCount; i++)
         {
-            Vector3 pos = i == 0 ? Vector3.zero : track.ExitPoint.position;
-            track = Instantiate(trackPrefab, pos, Quaternion.identity, transform);
-            track.name = $"Track_{i}";
-            trackList.Add(track);
+            Track Next = SpawNextTrack(position, $"Track_{i}");
+            position = Next.ExitPoint.position;
         }
     }
 
-    void ScrollTrack()
+    Track SpawNextTrack(Vector3 position, string trackname)
     {
-        // if (track != null)
-        //     track.transform.position += Vector3.back * scrollSpeed * Time.deltaTime;
+        Track Next = Instantiate(trackPrefab, position, Quaternion.identity, transform);
+        Next.name = trackname;
+        Next.trackManager = this;
+        trackList.Add(Next);
 
-        foreach (Track t in trackList)
-        {
-            if (t != null)
-                t.transform.position += Vector3.back * scrollSpeed * Time.deltaTime;
-        }
+        return Next;
     }
 
     void RepositionTrack()
@@ -53,17 +47,11 @@ public class TrackManager : MonoBehaviour
 
         if (trackList[0].ExitPoint.position.z < camTransform.position.z)
         {
-            SpawNextTrack(trackList[trackList.Count - 1], trackList[0].name);
+            Track last = trackList[trackList.Count - 1];
+            SpawNextTrack(last.ExitPoint.position, trackList[0].name);
 
             Destroy(trackList[0].gameObject);
             trackList.RemoveAt(0);
         }
-    }
-
-    void SpawNextTrack(Track current, string trackname)
-    {
-        Track Next = Instantiate(trackPrefab, current.ExitPoint.position, Quaternion.identity, transform);
-        Next.name = trackname;
-        trackList.Add(Next);
     }
 }
