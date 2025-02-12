@@ -1,10 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Track : MonoBehaviour
 {
     public Transform EntryPoint;
     public Transform ExitPoint;
-    [HideInInspector] public TrackManager trackManager;
+    public List<Transform> laneList;
+    [HideInInspector] public TrackManager trackMgr;
 
     void LateUpdate()
     {
@@ -13,8 +15,8 @@ public class Track : MonoBehaviour
 
     void Scroll()
     {
-        if (trackManager == null) return;
+        if (trackMgr == null) return;
 
-        transform.position += Vector3.back * trackManager.scrollSpeed * Time.smoothDeltaTime;
+        transform.position += Vector3.back * trackMgr.scrollSpeed * Time.smoothDeltaTime;
     }
 }

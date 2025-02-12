@@ -4,15 +4,19 @@ using System.Collections.Generic;
 public class TrackManager : MonoBehaviour
 {
     public Track trackPrefab;
+    public PlayerControl playerprefab;
     [Range(0f, 50f)] public float scrollSpeed = 10f;
     [Range(1, 10)] public int trackCount = 3;
     private List<Track> trackList = new List<Track>();
     private Transform camTransform;
 
+    [HideInInspector] public List<Transform> laneList;
+
     void Start()
     {
         camTransform = Camera.main.transform;
         SpawnInitialTrack();
+        SpawnPlayer();
     }
 
     void Update()
@@ -35,7 +39,8 @@ public class TrackManager : MonoBehaviour
     {
         Track Next = Instantiate(trackPrefab, position, Quaternion.identity, transform);
         Next.name = trackname;
-        Next.trackManager = this;
+        Next.trackMgr = this;
+        laneList = Next.laneList;
         trackList.Add(Next);
 
         return Next;
@@ -53,5 +58,11 @@ public class TrackManager : MonoBehaviour
             Destroy(trackList[0].gameObject);
             trackList.RemoveAt(0);
         }
+    }
+
+    void SpawnPlayer()
+    {
+        PlayerControl player = Instantiate(playerprefab, Vector3.zero, Quaternion.identity);
+        player.trackMgr = this;
     }
 }
