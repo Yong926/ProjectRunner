@@ -22,7 +22,7 @@ public class TrackManager : MonoBehaviour
 
     void SpawnInitialTrack()
     {
-        Vector3 position = Vector3.zero;
+        Vector3 position = new Vector3(0f, 0f, camTransform.position.z);
 
         for (int i = 0; i < trackCount; i++)
         {
