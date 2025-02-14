@@ -3,10 +3,20 @@ using System.Collections.Generic;
 
 public class TrackManager : MonoBehaviour
 {
+    [Space(20)]
     public Track trackPrefab;
     public PlayerControl playerprefab;
+
+    [Space(20)]
     [Range(0f, 50f)] public float scrollSpeed = 10f;
     [Range(1, 10)] public int trackCount = 3;
+
+    public Material CurvedMaterial;
+    [Range(0f, 0.5f)] public float CurvedFrequencyX;
+    [Range(0f, 10f)] public float CurvedAmplitudeX;
+    [Range(0f, 0.5f)] public float CurvedFrequencyY;
+    [Range(0f, 10f)] public float CurvedAmplitudeY;
+
     private List<Track> trackList = new List<Track>();
     private Transform camTransform;
 
@@ -22,6 +32,14 @@ public class TrackManager : MonoBehaviour
     void Update()
     {
         RepositionTrack();
+
+        float rndX = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyX) * 2f - 1f;
+        rndX = rndX * CurvedAmplitudeX;
+
+        float rndY = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyY) * 2f - 1f;
+        rndY = rndY * CurvedAmplitudeY;
+
+        CurvedMaterial.SetVector("_Offset", new Vector4(rndX, rndY, 0f, 0f));
     }
 
     void SpawnInitialTrack()
