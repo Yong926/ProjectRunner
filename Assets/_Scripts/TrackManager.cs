@@ -22,6 +22,8 @@ public class TrackManager : MonoBehaviour
 
     [HideInInspector] public List<Transform> laneList;
 
+    private int _curveAmount = Shader.PropertyToID("_CurveAmount");
+
     void Start()
     {
         camTransform = Camera.main.transform;
@@ -33,13 +35,7 @@ public class TrackManager : MonoBehaviour
     {
         RepositionTrack();
 
-        float rndX = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyX) * 2f - 1f;
-        rndX = rndX * CurvedAmplitudeX;
-
-        float rndY = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyY) * 2f - 1f;
-        rndY = rndY * CurvedAmplitudeY;
-
-        CurvedMaterial.SetVector("_Offset", new Vector4(rndX, rndY, 0f, 0f));
+        CurveTrack();
     }
 
     void SpawnInitialTrack()
@@ -83,4 +79,16 @@ public class TrackManager : MonoBehaviour
         PlayerControl player = Instantiate(playerprefab, Vector3.zero, Quaternion.identity);
         player.trackMgr = this;
     }
+
+    void CurveTrack()
+    {
+        float rndX = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyX) * 2f - 1f;
+        rndX = rndX * CurvedAmplitudeX;
+
+        float rndY = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyY) * 2f - 1f;
+        rndY = rndY * CurvedAmplitudeY;
+
+        CurvedMaterial.SetVector(_curveAmount, new Vector4(rndX, rndY, 0f, 0f));
+    }
+
 }

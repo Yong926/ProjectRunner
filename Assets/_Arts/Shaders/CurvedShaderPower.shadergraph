@@ -630,10 +630,10 @@
     "m_Guid": {
         "m_GuidSerialized": "75a0f985-7185-4322-858e-fa9eda04226e"
     },
-    "m_Name": "Offset",
+    "m_Name": "CurveAmount",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Offset",
-    "m_DefaultReferenceName": "_Offset",
+    "m_RefNameGeneratedByDisplayName": "CurveAmount",
+    "m_DefaultReferenceName": "_CurveAmount",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -1555,7 +1555,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "44fd29208b584205b48c4d762d4be8a6",
     "m_Id": 0,
-    "m_DisplayName": "Offset",
+    "m_DisplayName": "CurveAmount",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -2298,7 +2298,7 @@
     "m_ObjectId": "7d83b70fdcb142789601c535bd7f8318",
     "m_Title": "곡선표현 : Vertex",
     "m_Position": {
-        "x": -721.0000610351563,
+        "x": -721.0,
         "y": -1059.0
     }
 }
@@ -2522,7 +2522,7 @@
     "m_Title": "텍스쳐 및 컬러 표현 : Fragment",
     "m_Position": {
         "x": -348.0,
-        "y": -167.0001220703125
+        "y": -166.9999237060547
     }
 }
 
