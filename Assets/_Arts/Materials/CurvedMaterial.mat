@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mtl_RoadNBlock
+  m_Name: CurvedMaterial
   m_Shader: {fileID: -6465566751694194690, guid: 219ac78c1acebbc48afa7005c9832be5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -141,7 +141,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CurveAmount: {r: 5.605935, g: 1.121187, b: 0, a: 0}
+    - _CurveAmount: {r: -3.791912, g: -0.75838244, b: 0, a: 0}
     - _EmissionColor: {r: 8, g: 4.716981, b: 4.716981, a: 1}
     - _Offset: {r: -7.4307804, g: -1.4861561, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

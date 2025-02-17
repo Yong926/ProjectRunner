@@ -1,41 +1,57 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class TrackManager : MonoBehaviour
 {
     [Space(20)]
-    public Track trackPrefab;
-    public PlayerControl playerprefab;
+    [SerializeField] Track trackPrefab;
+    [SerializeField] PlayerControl playerprefab;
+    [SerializeField] Material CurvedMaterial;
 
     [Space(20)]
     [Range(0f, 50f)] public float scrollSpeed = 10f;
     [Range(1, 10)] public int trackCount = 3;
 
-    public Material CurvedMaterial;
-    [Range(0f, 0.5f)] public float CurvedFrequencyX;
-    [Range(0f, 10f)] public float CurvedAmplitudeX;
-    [Range(0f, 0.5f)] public float CurvedFrequencyY;
-    [Range(0f, 10f)] public float CurvedAmplitudeY;
+    [Space(20)]
+    [Range(0f, 0.5f), SerializeField] float CurvedFrequencyX;
+    [Range(0f, 0.5f), SerializeField] float CurvedFrequencyY;
 
-    private List<Track> trackList = new List<Track>();
-    private Transform camTransform;
+    [Space(20)]
+    [Range(0f, 10f), SerializeField] float CurvedAmplitudeX;
+    [Range(0f, 10f), SerializeField] float CurvedAmplitudeY;
 
     [HideInInspector] public List<Transform> laneList;
 
-    private int _curveAmount = Shader.PropertyToID("_CurveAmount");
+    List<Track> trackList = new List<Track>();
+    Transform camTransform;
+    int _curveAmount = Shader.PropertyToID("_CurveAmount");
 
-    void Start()
+    IEnumerator Start()
     {
         camTransform = Camera.main.transform;
+
         SpawnInitialTrack();
+
         SpawnPlayer();
+
+        Debug.Log("3");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("2");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("1");
+        yield return new WaitForSeconds(1f);
+        GameManager.IsPlaying = true;
     }
 
     void Update()
     {
+        if (GameManager.IsPlaying == false)
+            return;
+
         RepositionTrack();
 
-        CurveTrack();
+        BendTrack();
     }
 
     void SpawnInitialTrack()
@@ -80,8 +96,21 @@ public class TrackManager : MonoBehaviour
         player.trackMgr = this;
     }
 
-    void CurveTrack()
+    public Track GetTrackByZ(float z)
     {
+        foreach (var t in trackList)
+        {
+            if (z > t.EntryPoint.position.z && z <= t.ExitPoint.position.z)
+                return t;
+        }
+
+        return null;
+    }
+
+    void BendTrack()
+    {
+        if (scrollSpeed <= 0f) return;
+
         float rndX = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyX) * 2f - 1f;
         rndX = rndX * CurvedAmplitudeX;
 
@@ -91,4 +120,8 @@ public class TrackManager : MonoBehaviour
         CurvedMaterial.SetVector(_curveAmount, new Vector4(rndX, rndY, 0f, 0f));
     }
 
+    public void StopScollTrack()
+    {
+        scrollSpeed = 0f;
+    }
 }
