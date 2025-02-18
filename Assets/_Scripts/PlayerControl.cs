@@ -120,13 +120,13 @@ public class PlayerControl : MonoBehaviour
         if (state != PlayerState.Idle) return;
 
         state = PlayerState.Slide;
-        SwitchCollider(true);
+        SwitchCollider(false);
 
         var seqSlide = DOTween.Sequence().OnComplete(() =>
         {
             state = PlayerState.Idle;
 
-            SwitchCollider(false);
+            SwitchCollider(true);
         });
         seqSlide.Append(DOVirtual.Float(0f, -1f, slideDuration * 0.25f, (v) => deformSlide.Factor = v));
         seqSlide.AppendInterval(slideDuration * 0.5f);
