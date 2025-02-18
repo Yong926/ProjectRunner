@@ -2,7 +2,6 @@ using UnityEngine;
 using Unity.Mathematics;
 using DG.Tweening;
 using Deform;
-using System.Collections;
 
 public enum PlayerState { Idle = 0, Move, Jump, Slide }
 
