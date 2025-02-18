@@ -540,29 +540,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7bbd703c9ae1e46a3c8cbc36df9321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot: {fileID: 4842042263799122238}
-  colNormal: {fileID: 9201113695693421541}
-  colSlide: {fileID: 772554522512606616}
   deformLeft: {fileID: 6483912382530891142}
   deformRight: {fileID: 3579063938047178509}
   deformUp: {fileID: 7214852815508691519}
   deformDown: {fileID: 2294084696970062556}
   deformSlide: {fileID: 5574261494639507440}
   deformHit: {fileID: 4775144960348542228}
-  moveDuration: 0.25
-  moveEase: 32
-  jumpDuration: 0.6
-  jumpHeight: 2
-  jumpEase: 32
-  slideDuration: 0.6
+  pivot: {fileID: 4842042263799122238}
+  colNormal: {fileID: 9201113695693421541}
+  colSlide: {fileID: 772554522512606616}
+  moveDuration: 0.2
+  moveEase: 6
   jumpIntervals:
   - 0.25
   - 0.5
   - 0.75
   - 0.25
+  jumpDuration: 0.6
+  jumpHeight: 2
+  jumpEase: 32
+  slideDuration: 0.6
   trackMgr: {fileID: 0}
   state: 0
-  hit: 0
 --- !u!54 &1803177178797991726
 Rigidbody:
   m_ObjectHideFlags: 0

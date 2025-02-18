@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using DG.Tweening;
 using Deform;
+using System.Collections;
 
 public enum PlayerState { Idle = 0, Move, Jump, Slide }
 
@@ -43,6 +44,9 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            GameManager.IsPlaying = !GameManager.IsPlaying;
+
         if (pivot == null || GameManager.IsPlaying == false) return;
 
         if (Input.GetButtonDown("Left") && currentLane > 0)

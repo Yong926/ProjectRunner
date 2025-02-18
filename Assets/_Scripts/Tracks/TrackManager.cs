@@ -12,6 +12,7 @@ public class TrackManager : MonoBehaviour
     [Space(20)]
     [Range(0f, 50f)] public float scrollSpeed = 10f;
     [Range(1, 10)] public int trackCount = 3;
+    [Range(1, 5)] public int countdown = 3;
 
     [Space(20)]
     [Range(0f, 0.5f), SerializeField] float CurvedFrequencyX;
@@ -26,8 +27,9 @@ public class TrackManager : MonoBehaviour
     List<Track> trackList = new List<Track>();
     Transform camTransform;
     int _curveAmount = Shader.PropertyToID("_CurveAmount");
+    float elapsedTime;
 
-    IEnumerator Start()
+    void Start()
     {
         camTransform = Camera.main.transform;
 
@@ -35,13 +37,7 @@ public class TrackManager : MonoBehaviour
 
         SpawnPlayer();
 
-        Debug.Log("3");
-        yield return new WaitForSeconds(1f);
-        Debug.Log("2");
-        yield return new WaitForSeconds(1f);
-        Debug.Log("1");
-        yield return new WaitForSeconds(1f);
-        GameManager.IsPlaying = true;
+        StartCoroutine(Countdown());
     }
 
     void Update()
@@ -63,6 +59,8 @@ public class TrackManager : MonoBehaviour
             Track Next = SpawNextTrack(position, $"Track_{i}");
             position = Next.ExitPoint.position;
         }
+
+        BendTrack();
     }
 
     Track SpawNextTrack(Vector3 position, string trackname)
@@ -109,12 +107,14 @@ public class TrackManager : MonoBehaviour
 
     void BendTrack()
     {
-        if (scrollSpeed <= 0f) return;
+        // if (scrollSpeed <= 0f) return;
 
-        float rndX = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyX) * 2f - 1f;
+        elapsedTime += Time.deltaTime;
+
+        float rndX = Mathf.PerlinNoise1D(elapsedTime * CurvedFrequencyX) * 2f - 1f;
         rndX = rndX * CurvedAmplitudeX;
 
-        float rndY = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyY) * 2f - 1f;
+        float rndY = Mathf.PerlinNoise1D(elapsedTime * CurvedFrequencyY) * 2f - 1f;
         rndY = rndY * CurvedAmplitudeY;
 
         CurvedMaterial.SetVector(_curveAmount, new Vector4(rndX, rndY, 0f, 0f));
@@ -123,5 +123,15 @@ public class TrackManager : MonoBehaviour
     public void StopScollTrack()
     {
         scrollSpeed = 0f;
+    }
+
+    IEnumerator Countdown()
+    {
+        for (int i = countdown; i > 0; i--)
+        {
+            Debug.Log($"{i}");
+            yield return new WaitForSeconds(0.5f);
+        }
+        GameManager.IsPlaying = true;
     }
 }

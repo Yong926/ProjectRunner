@@ -46,10 +46,10 @@ public class ObstacleManager : MonoBehaviour
     {
         while (true)
         {
-            if (GameManager.IsPlaying == false)
-                yield break;
+            yield return new WaitUntil(() => GameManager.IsPlaying);
 
             SpawnObstacle(Random.Range(0, trackMgr.laneList.Count));
+
             yield return new WaitForSeconds(spawnInterval);
         }
     }
