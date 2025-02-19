@@ -2,17 +2,17 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum ObstacleType { Single, Top, Bottom, _MAX_ }
+public enum ObstacleType { Single, Double, Triple, _MAX_ }
 
 public class ObstacleManager : MonoBehaviour
 {
     [Space(20)]
     [SerializeField] List<Obstacle> obstacleSingle;
-    [SerializeField] List<Obstacle> obstacleTop;
-    [SerializeField] List<Obstacle> obstacleBottom;
+    [SerializeField] List<Obstacle> obstacleDouble;
+    [SerializeField] List<Obstacle> obstacleTriple;
 
     [Space(20)]
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] float spawnZpos = 60f;
 
     [Space(20)]
     [SerializeField] float spawnInterval = 1f;
@@ -35,22 +35,22 @@ public class ObstacleManager : MonoBehaviour
         StartCoroutine(InfiniteSpawn());
     }
 
-    public void SpawnObstacle(int lane)
+    public void SpawnObstacle()
     {
-        lane = Mathf.Clamp(lane, 0, trackMgr.laneList.Count - 1);
-        Transform laneTransform = trackMgr.laneList[lane];
-        Vector3 pos = new Vector3(laneTransform.position.x, laneTransform.position.y, spawnPoint.position.z);
+        (int lane, Obstacle prefab) = RandomLanePrefab();
 
-        Track t = trackMgr.GetTrackByZ(spawnPoint.position.z);
+        Track t = trackMgr.GetTrackByZ(spawnZpos);
         if (t == null)
         {
             Debug.LogWarning("Z 위치에 해당하는 트랙이 없음");
             return;
         }
 
-        var obsprefab = RandomTypeSpanw();
-
-        Instantiate(obsprefab, pos, Quaternion.identity, t.ObstacleRoot);
+        if (prefab != null)
+        {
+            var o = Instantiate(prefab, t.ObstacleRoot);
+            o.SetLanePosion(lane, spawnZpos, trackMgr);
+        }
     }
 
     IEnumerator InfiniteSpawn()
@@ -61,30 +61,34 @@ public class ObstacleManager : MonoBehaviour
         {
             yield return new WaitUntil(() => GameManager.IsPlaying);
 
-            // SpawnObstacle(Random.Range(0, trackMgr.laneList.Count));
-
             if (GameManager.mileage - lastMileage > spawnInterval)
             {
+                SpawnObstacle();
+
                 lastMileage = GameManager.mileage;
-                SpawnObstacle(Random.Range(0, trackMgr.laneList.Count));
             }
         }
     }
 
-    Obstacle RandomTypeSpanw()
+    (int, Obstacle) RandomLanePrefab()
     {
+        int rndLane = Random.Range(0, trackMgr.laneList.Count);
         int rndType = Random.Range((int)ObstacleType.Single, (int)ObstacleType._MAX_);
 
         List<Obstacle> obstacles = rndType switch
         {
             (int)ObstacleType.Single => obstacleSingle,
-            (int)ObstacleType.Top => obstacleTop,
-            (int)ObstacleType.Bottom => obstacleBottom,
+            (int)ObstacleType.Double => obstacleDouble,
+            (int)ObstacleType.Triple => obstacleTriple,
             _ => null
         };
 
+        if (obstacles.Count <= 0) return (-1, null);
+
         Obstacle prefab = obstacles[Random.Range(0, obstacles.Count)];
 
-        return prefab;
+        if (prefab == null) return (-1, null);
+
+        return (rndLane, prefab);
     }
 }
