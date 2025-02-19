@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ObstacleDoubleComposited : ObstacleDouble
+public class ObstacleTripleComposited : obstacleTriple
 {
     public List<Obstacle> compositedprefab;
     List<Vector3> spawnedPos = new List<Vector3>();
@@ -34,22 +34,10 @@ public class ObstacleDoubleComposited : ObstacleDouble
         Vector3 lanepos1 = tm.laneList[1].position;
         Vector3 lanepos2 = tm.laneList[2].position;
 
-        if (lane == 0)
-        {
-            spawnedPos.Add(lanepos0);
-            spawnedPos.Add(lanepos1);
+        spawnedPos.Add(lanepos0);
+        spawnedPos.Add(lanepos1);
+        spawnedPos.Add(lanepos2);
 
-        }
-        else if (lane == 1)
-        {
-            spawnedPos.Add(lanepos0);
-            spawnedPos.Add(lanepos2);
-        }
-        else if (lane == 2)
-        {
-            spawnedPos.Add(lanepos1);
-            spawnedPos.Add(lanepos2);
-        }
         Vector3 pos = new Vector3(lanepos1.x, lanepos1.y, zpos);
 
         transform.SetPositionAndRotation(pos, Quaternion.identity);
