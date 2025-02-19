@@ -55,13 +55,19 @@ public class ObstacleManager : MonoBehaviour
 
     IEnumerator InfiniteSpawn()
     {
+        double lastMileage = 0f;
+
         while (true)
         {
             yield return new WaitUntil(() => GameManager.IsPlaying);
 
-            SpawnObstacle(Random.Range(0, trackMgr.laneList.Count));
+            // SpawnObstacle(Random.Range(0, trackMgr.laneList.Count));
 
-            yield return new WaitForSeconds(spawnInterval);
+            if (GameManager.mileage - lastMileage > spawnInterval)
+            {
+                lastMileage = GameManager.mileage;
+                SpawnObstacle(Random.Range(0, trackMgr.laneList.Count));
+            }
         }
     }
 
