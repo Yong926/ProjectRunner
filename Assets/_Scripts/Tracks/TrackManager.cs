@@ -26,12 +26,23 @@ public class TrackManager : MonoBehaviour
 
     List<Track> trackList = new List<Track>();
     Transform camTransform;
+    InGameUI uiInGame;
     int _curveAmount = Shader.PropertyToID("_CurveAmount");
     float elapsedTime;
 
     void Start()
     {
         camTransform = Camera.main.transform;
+
+        // var uis = FindObjectsByType<InGameUI>(FindObjectsSortMode.None);
+        // if (uis != null || uis.Length > 0)
+        //     uiInGame = uis[0];
+
+        // uiAny = FindAnyObjectByType<InGameUI>();
+
+        // uiInFirst = FindFirstObjectByType<InGameUI>();
+
+        uiInGame = FindFirstObjectByType<InGameUI>();
 
         SpawnInitialTrack();
 
@@ -109,8 +120,6 @@ public class TrackManager : MonoBehaviour
 
     void BendTrack()
     {
-        // if (scrollSpeed <= 0f) return;
-
         elapsedTime += Time.deltaTime;
 
         float rndX = Mathf.PerlinNoise1D(elapsedTime * CurvedFrequencyX) * 2f - 1f;
@@ -131,8 +140,8 @@ public class TrackManager : MonoBehaviour
     {
         for (int i = countdown; i > 0; i--)
         {
-            Debug.Log($"{i}");
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
+            uiInGame.ShowInfo($"{i}");
         }
         GameManager.IsPlaying = true;
     }

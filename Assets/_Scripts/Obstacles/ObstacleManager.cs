@@ -35,14 +35,12 @@ public class ObstacleManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        TrackManager[] tm = FindObjectsByType<TrackManager>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        if (tm == null || tm.Length <= 0)
+        trackMgr = FindFirstObjectByType<TrackManager>();
+        if (trackMgr == null)
         {
             Debug.LogError($"트랙 관리자 없음");
             yield break;
         }
-
-        trackMgr = tm[0];
 
         foreach (var pool in obstaclePools)
             randomGenerator.AddItem(pool);
