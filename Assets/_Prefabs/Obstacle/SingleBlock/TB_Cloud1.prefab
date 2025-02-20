@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1340821999215102800}
-  - component: {fileID: 159719211411843171}
+  - component: {fileID: 1265187355910983321}
   m_Layer: 0
   m_Name: TB_Cloud1
   m_TagString: Untagged
@@ -65,7 +65,7 @@ Transform:
   - {fileID: 6294762306807465807}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &159719211411843171
+--- !u!114 &1265187355910983321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2947059394226771151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52290270024d4d4da90520c36928afd, type: 3}
+  m_Script: {fileID: 11500000, guid: fffc57674ed13b944808485c2c18a3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4105454940018980039
