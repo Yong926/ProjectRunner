@@ -1,23 +1,37 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using CustomInspector;
 
 public enum ObstacleType { Single, Double, Triple, _MAX_ }
+
+[System.Serializable]
+public class ObstaclePool : RandomItem
+{
+    public List<Obstacle> obstacleList;
+
+    public override Object GetItem()
+    {
+        if (obstacleList == null || obstacleList.Count <= 0)
+            return null;
+
+        return obstacleList[Random.Range(0, obstacleList.Count)];
+    }
+}
 
 public class ObstacleManager : MonoBehaviour
 {
     [Space(20)]
-    [SerializeField] List<Obstacle> obstacleSingle;
-    [SerializeField] List<Obstacle> obstacleDouble;
-    [SerializeField] List<Obstacle> obstacleTriple;
+    public List<ObstaclePool> obstaclePools;
 
     [Space(20)]
     [SerializeField] float spawnZpos = 60f;
 
     [Space(20)]
-    [SerializeField] float spawnInterval = 1f;
+    [SerializeField, AsRange(0, 100)] Vector2 spawnInterval;
 
     TrackManager trackMgr;
+    RandomGenerator randomGenerator = new RandomGenerator();
 
     IEnumerator Start()
     {
@@ -29,6 +43,9 @@ public class ObstacleManager : MonoBehaviour
         }
 
         trackMgr = tm[0];
+
+        foreach (var pool in obstaclePools)
+            randomGenerator.AddItem(pool);
 
         yield return new WaitUntil(() => GameManager.IsPlaying == true);
 
@@ -61,7 +78,7 @@ public class ObstacleManager : MonoBehaviour
         {
             yield return new WaitUntil(() => GameManager.IsPlaying);
 
-            if (GameManager.mileage - lastMileage > spawnInterval)
+            if (GameManager.mileage - lastMileage > Random.Range(spawnInterval.x, spawnInterval.y))
             {
                 SpawnObstacle();
 
@@ -73,19 +90,8 @@ public class ObstacleManager : MonoBehaviour
     (int, Obstacle) RandomLanePrefab()
     {
         int rndLane = Random.Range(0, trackMgr.laneList.Count);
-        int rndType = Random.Range((int)ObstacleType.Single, (int)ObstacleType._MAX_);
 
-        List<Obstacle> obstacles = rndType switch
-        {
-            (int)ObstacleType.Single => obstacleSingle,
-            (int)ObstacleType.Double => obstacleDouble,
-            (int)ObstacleType.Triple => obstacleTriple,
-            _ => null
-        };
-
-        if (obstacles.Count <= 0) return (-1, null);
-
-        Obstacle prefab = obstacles[Random.Range(0, obstacles.Count)];
+        Obstacle prefab = randomGenerator.GetRandom().GetItem() as Obstacle;
 
         if (prefab == null) return (-1, null);
 

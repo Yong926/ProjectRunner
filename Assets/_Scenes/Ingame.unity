@@ -758,17 +758,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe8dcd86f044d242b090ff9d04c5c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleSingle:
-  - {fileID: 2523081229711108865, guid: 7d1e3dec84a779d46a6a87b17b33260c, type: 3}
-  - {fileID: 5362606173257035460, guid: d141f53994dd90344b356e276f321204, type: 3}
-  obstacleDouble:
-  - {fileID: 1865970225790164502, guid: 2a0e1825b3bf0434e9d9f6144081ab87, type: 3}
-  - {fileID: 1609704040879911889, guid: f79bd7005c068784e9a1d16b028b7b7b, type: 3}
-  obstacleTriple:
-  - {fileID: 381529341929168505, guid: 07771df1dc60e374d9518237882ec1e4, type: 3}
-  - {fileID: -8387825694190634924, guid: 8f87d6efb88bc6e40a665c099b733e7a, type: 3}
+  obstaclePools:
+  - name: Empty
+    weight: 6
+    obstacleList: []
+  - name: Single
+    weight: 3
+    obstacleList:
+    - {fileID: 3415249193325728049, guid: 2bac0b6fc299033498799286aa34134d, type: 3}
+    - {fileID: 5944640264620497958, guid: 2066adf814eb94a40a3f03e3e8838e32, type: 3}
+    - {fileID: 2523081229711108865, guid: 7d1e3dec84a779d46a6a87b17b33260c, type: 3}
+    - {fileID: 5362606173257035460, guid: d141f53994dd90344b356e276f321204, type: 3}
+    - {fileID: 1265187355910983321, guid: ab78bad167ff39b469419f0f88be2251, type: 3}
+    - {fileID: 5333874302948733344, guid: 5a73ac7869241594995f56ad0b7816c8, type: 3}
+  - name: Double
+    weight: 1
+    obstacleList:
+    - {fileID: 1865970225790164502, guid: 2a0e1825b3bf0434e9d9f6144081ab87, type: 3}
+    - {fileID: 1609704040879911889, guid: f79bd7005c068784e9a1d16b028b7b7b, type: 3}
+  - name: Triple
+    weight: 10
+    obstacleList:
+    - {fileID: 381529341929168505, guid: 07771df1dc60e374d9518237882ec1e4, type: 3}
+    - {fileID: -8387825694190634924, guid: 8f87d6efb88bc6e40a665c099b733e7a, type: 3}
   spawnZpos: 60
-  spawnInterval: 10
+  spawnInterval: {x: 15, y: 25}
 --- !u!4 &875605965
 Transform:
   m_ObjectHideFlags: 0
@@ -882,60 +896,7 @@ Transform:
   - {fileID: 8287848415074763220}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1255562177
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Height Fog Global
-  m_Shader: {fileID: 4800000, guid: 3a7ef1b66bafb7a448a880ef76d2e6e6, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3002
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _AdvancedCat: 1
-    - _AlphaCutoff: 0.5
-    - _Banner: 1
-    - _DirectionalCat: 1
-    - _FogCameraMode: 0
-    - _FogCat: 1
-    - _HeightFogGlobal: 1
-    - _IsHeightFogShader: 1
-    - _NoiseCat: 1
-    - _QueueControl: -1
-    - _QueueOffset: 0
-    - _SkyboxCat: 1
-    m_Colors:
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!21 &1280777102
+--- !u!21 &1125847892
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1003,6 +964,59 @@ Material:
     - _FogColorEnd: {r: 0.8862745, g: 1.443137, b: 2, a: 1}
     - _FogColorStart: {r: 0.4411765, g: 0.722515, b: 1, a: 1}
     - _NoiseSpeed: {r: 0.5, g: 0, b: 0.5, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &1397776247
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Height Fog Global
+  m_Shader: {fileID: 4800000, guid: 3a7ef1b66bafb7a448a880ef76d2e6e6, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3002
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AdvancedCat: 1
+    - _AlphaCutoff: 0.5
+    - _Banner: 1
+    - _DirectionalCat: 1
+    - _FogCameraMode: 0
+    - _FogCat: 1
+    - _HeightFogGlobal: 1
+    - _IsHeightFogShader: 1
+    - _NoiseCat: 1
+    - _QueueControl: -1
+    - _QueueOffset: 0
+    - _SkyboxCat: 1
+    m_Colors:
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1702659391
@@ -1588,7 +1602,7 @@ MonoBehaviour:
   renderPriority: 2
   manualPositionAndScale: 0
   styledSpace0: 0
-  overrideMaterial: {fileID: 1280777102}
+  overrideMaterial: {fileID: 1125847892}
   overrideCamToVolumeDistance: 1
   overrideVolumeDistanceFade: 0
   version: 0
@@ -1615,7 +1629,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1255562177}
+  - {fileID: 1397776247}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
