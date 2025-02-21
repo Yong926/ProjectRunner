@@ -9,6 +9,7 @@ public class Track : MonoBehaviour
 
     [Space(20)]
     public Transform ObstacleRoot;
+    public Transform CollectableRoot;
 
     [Space(20)]
     public List<Transform> laneList;

@@ -131,6 +131,7 @@ Transform:
   - {fileID: 3561179684230640270}
   - {fileID: 5958016247359443881}
   - {fileID: 6664619649395746504}
+  - {fileID: 1118690420378335152}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7508963008922167121
@@ -147,12 +148,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntryPoint: {fileID: 2308103549325397679}
   ExitPoint: {fileID: 1588751454540633920}
+  ObstacleRoot: {fileID: 6664619649395746504}
+  CollectableRoot: {fileID: 1118690420378335152}
   laneList:
   - {fileID: 1057171680607334428}
   - {fileID: 3917294566106847600}
   - {fileID: 7303202245919285954}
-  ObstacleRoot: {fileID: 6664619649395746504}
   trackMgr: {fileID: 0}
+--- !u!1 &5671561425953814888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118690420378335152}
+  m_Layer: 0
+  m_Name: CollectableRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1118690420378335152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671561425953814888}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8077831298600119413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6120497662161699240
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6664619649395746504}
   m_Layer: 0
-  m_Name: Obstacles
+  m_Name: ObstacleRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

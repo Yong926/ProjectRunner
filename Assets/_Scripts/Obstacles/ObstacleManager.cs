@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using CustomInspector;
 
-public enum ObstacleType { Single, Double, Triple, _MAX_ }
-
 [System.Serializable]
 public class ObstaclePool : RandomItem
 {
