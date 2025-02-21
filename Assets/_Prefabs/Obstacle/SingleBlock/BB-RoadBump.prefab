@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3415249193325728049}
   m_Layer: 0
   m_Name: BB-RoadBump
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffc57674ed13b944808485c2c18a3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  singleType: 0
 --- !u!1 &2191421497439596562
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +57,7 @@ GameObject:
   - component: {fileID: 6008846217326713703}
   m_Layer: 0
   m_Name: pivot
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,6 +89,10 @@ PrefabInstance:
     - target: {fileID: 1412086680114958, guid: b7fc1539602322c46b85b205f521d764, type: 3}
       propertyPath: m_Name
       value: SM_Prop_RoadBump_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412086680114958, guid: b7fc1539602322c46b85b205f521d764, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4325056766177480, guid: b7fc1539602322c46b85b205f521d764, type: 3}
       propertyPath: m_LocalPosition.x

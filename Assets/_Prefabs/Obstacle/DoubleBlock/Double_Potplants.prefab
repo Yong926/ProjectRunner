@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7994988082067389428}
   m_Layer: 0
   m_Name: pivot
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1609704040879911889}
   m_Layer: 0
   m_Name: Double_Potplants
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,6 +88,10 @@ PrefabInstance:
     - target: {fileID: 1426761401228798, guid: d2cc7aa5b74e38e49a2b6b3d62afa808, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Potplants_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426761401228798, guid: d2cc7aa5b74e38e49a2b6b3d62afa808, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4487404791396254, guid: d2cc7aa5b74e38e49a2b6b3d62afa808, type: 3}
       propertyPath: m_LocalPosition.x

@@ -138,11 +138,16 @@ public class TrackManager : MonoBehaviour
 
     IEnumerator Countdown()
     {
+        yield return new WaitForEndOfFrame();
+
         for (int i = countdown; i > 0; i--)
         {
-            yield return new WaitForSeconds(1f);
             uiInGame.ShowInfo($"{i}");
+            yield return new WaitForSeconds(1f);
         }
+
+        uiInGame.ShowInfo($"Go!!");
+
         GameManager.IsPlaying = true;
     }
 }

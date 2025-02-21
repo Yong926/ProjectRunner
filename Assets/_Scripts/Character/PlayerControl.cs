@@ -63,7 +63,9 @@ public class PlayerControl : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other)
+        if (other.tag == "Collectable")
+            GameManager.coin++;
+        else if (other.tag == "Obstacle")
             GameManager.IsPlaying = false;
     }
 

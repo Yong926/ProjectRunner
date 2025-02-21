@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6294762306807465807}
   m_Layer: 0
   m_Name: pivot
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1265187355910983321}
   m_Layer: 0
   m_Name: TB_Cloud1
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffc57674ed13b944808485c2c18a3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  singleType: 0
 --- !u!1001 &4105454940018980039
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88,6 +89,10 @@ PrefabInstance:
     - target: {fileID: 1359359619012102, guid: 0ed3e794c99843b41abc4881d6c0cfd0, type: 3}
       propertyPath: m_Name
       value: SM_Env_Generic_Cloud_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359359619012102, guid: 0ed3e794c99843b41abc4881d6c0cfd0, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4454463654971820, guid: 0ed3e794c99843b41abc4881d6c0cfd0, type: 3}
       propertyPath: m_LocalPosition.x
