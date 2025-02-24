@@ -2,18 +2,21 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using CustomInspector;
+using MoreMountains.Feedbacks;
 
 public class InGameUI : MonoBehaviour
 {
     [HorizontalLine]
     [SerializeField] TextMeshProUGUI tmInformation;
 
+    [SerializeField] MMF_Player feedbackInformation;
+
     [HorizontalLine]
     [SerializeField] TextMeshProUGUI tmMileage;
 
     [SerializeField] TextMeshProUGUI tmCoin;
 
-    [SerializeField] TextMeshProUGUI tmHealth;
+    [SerializeField] TextMeshProUGUI tmLife;
 
     Sequence _seqInfo;
     Sequence _seqCoin;
@@ -28,21 +31,24 @@ public class InGameUI : MonoBehaviour
         UpdateMileage();
 
         UpdateCoins();
+
+        UpdateLife();
     }
 
     public void ShowInfo(string info, float duration = 1f)
     {
-        tmInformation.transform.localScale = Vector3.zero;
+        feedbackInformation?.PlayFeedbacks();
+        // tmInformation.transform.localScale = Vector3.zero;
 
-        if (_seqInfo != null)
-            _seqInfo.Kill(true);
+        // if (_seqInfo != null)
+        //     _seqInfo.Kill(true);
 
-        _seqInfo = DOTween.Sequence().OnComplete(() => tmInformation.transform.localScale = Vector3.zero);
-        _seqInfo.AppendCallback(() => tmInformation.text = info);
-        _seqInfo.Append(tmInformation.transform.DOScale(1.2f, duration * 0.1f));
-        _seqInfo.Append(tmInformation.transform.DOScale(1f, duration * 0.2f));
-        _seqInfo.AppendInterval(duration * 0.4f);
-        _seqInfo.Append(tmInformation.transform.DOScale(0f, duration * 0.3f));
+        // _seqInfo = DOTween.Sequence().OnComplete(() => tmInformation.transform.localScale = Vector3.zero);
+        // _seqInfo.AppendCallback(() => tmInformation.text = info);
+        // _seqInfo.Append(tmInformation.transform.DOScale(1.2f, duration * 0.1f));
+        // _seqInfo.Append(tmInformation.transform.DOScale(1f, duration * 0.2f));
+        // _seqInfo.AppendInterval(duration * 0.4f);
+        // _seqInfo.Append(tmInformation.transform.DOScale(0f, duration * 0.3f));
     }
 
     void UpdateMileage()
@@ -80,6 +86,24 @@ public class InGameUI : MonoBehaviour
         tmCoin.rectTransform.localScale = Vector3.one;
         _tweencoin = tmCoin.rectTransform.DOPunchScale(Vector3.one * 0.5f, 0.25f, 10, 1f)
                         .OnComplete(() => tmCoin.rectTransform.localScale = Vector3.one);
+
+    }
+
+    private int _lastlife;
+    void UpdateLife()
+    {
+        if (_lastlife == GameManager.life)
+            return;
+
+        tmLife.text = GameManager.life.ToString();
+
+        if (GameManager.life <= 0)
+        {
+            ShowInfo("GAME OVER", 5f);
+            GameManager.IsGameover = true;
+        }
+
+        _lastlife = GameManager.life;
 
     }
 }

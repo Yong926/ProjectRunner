@@ -1,10 +1,10 @@
-using System.Collections;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class CollectableCoin : Collectable
 {
     [SerializeField] Transform pivot;
-    [SerializeField] ParticleSystem particle;
+    [SerializeField] MMF_Player feedbackDisappear;
     public uint Add = 1;
     public override void SetLanePosion(int lane, float zpos, TrackManager tm)
     {
@@ -18,16 +18,7 @@ public class CollectableCoin : Collectable
     {
         GameManager.coin += Add;
 
-        StartCoroutine(Disappear());
-    }
-
-    IEnumerator Disappear()
-    {
         transform.SetParent(null);
-        pivot.gameObject.SetActive(false);
-        particle.Play();
-
-        yield return new WaitUntil(() => particle.isPlaying == false);
-        Destroy(gameObject);
+        feedbackDisappear?.PlayFeedbacks();
     }
 }

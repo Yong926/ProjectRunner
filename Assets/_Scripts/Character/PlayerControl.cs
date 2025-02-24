@@ -2,15 +2,13 @@ using UnityEngine;
 using Unity.Mathematics;
 using DG.Tweening;
 using Deform;
+using MoreMountains.Feedbacks;
 
 public enum PlayerState { Idle = 0, Move, Jump, Slide }
 
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] SquashAndStretchDeformer deformLeft, deformRight, deformUp, deformDown, deformSlide;
-
-    [Space(20)]
-    [SerializeField] Material material;
 
     [Space(20)]
     [SerializeField] Transform pivot;
@@ -32,6 +30,10 @@ public class PlayerControl : MonoBehaviour
     [Space(20)]
     [SerializeField] float slideDuration = 0.5f;
 
+    [Space(20)]
+    [SerializeField] MMF_Player feedbackImpact;
+    [SerializeField] MMF_Player feedbackCrash;
+
     [HideInInspector] public TrackManager trackMgr;
     [HideInInspector] public PlayerState state;
 
@@ -46,7 +48,7 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (GameManager.IsGameover == false && Input.GetKeyDown(KeyCode.Alpha1))
             GameManager.IsPlaying = !GameManager.IsPlaying;
 
         if (pivot == null || GameManager.IsPlaying == false) return;
@@ -68,15 +70,16 @@ public class PlayerControl : MonoBehaviour
     {
         if (other.tag == "Collectable")
         {
-            DOVirtual.Float(0f, 1f, 0.1f, v => material.SetFloat("_Impact", v))
-                                .OnComplete(() => DOVirtual.Float(1f, 0f, 0.1f, v => material.SetFloat("_Impact", v)))
-                                .OnComplete(() => material.SetFloat("_Impact", 0f));
+            feedbackImpact?.PlayFeedbacks();
             other.GetComponentInParent<Collectable>()?.Collect();
         }
 
-
         else if (other.tag == "Obstacle")
+        {
+            feedbackCrash?.PlayFeedbacks();
+            GameManager.life -= 1;
             GameManager.IsPlaying = false;
+        }
     }
 
     void HandleDirection(int direction)
