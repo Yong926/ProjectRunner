@@ -7,7 +7,7 @@ public class TrackManager : MonoBehaviour
     [Space(20)]
     [SerializeField] Track trackPrefab;
     [SerializeField] PlayerControl playerprefab;
-    [SerializeField] Material CurvedMaterial;
+    [SerializeField] List<Material> CurvedMaterials;
 
     [Space(20)]
     [Range(0f, 50f)] public float scrollSpeed = 10f;
@@ -128,7 +128,8 @@ public class TrackManager : MonoBehaviour
         float rndY = Mathf.PerlinNoise1D(elapsedTime * CurvedFrequencyY) * 2f - 1f;
         rndY = rndY * CurvedAmplitudeY;
 
-        CurvedMaterial.SetVector(_curveAmount, new Vector4(rndX, rndY, 0f, 0f));
+        foreach (var m in CurvedMaterials)
+            m.SetVector(_curveAmount, new Vector4(rndX, rndY, 0f, 0f));
     }
 
     public void StopScollTrack()

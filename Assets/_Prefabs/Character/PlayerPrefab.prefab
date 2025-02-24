@@ -118,7 +118,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c19dfbd7b62c6224c9e65c5dae6887ba, type: 2}
+  - {fileID: 2100000, guid: 2c57afe21422aee46975b24a303e1fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -249,7 +249,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c19dfbd7b62c6224c9e65c5dae6887ba, type: 2}
+  - {fileID: 2100000, guid: 2c57afe21422aee46975b24a303e1fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -426,7 +426,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c19dfbd7b62c6224c9e65c5dae6887ba, type: 2}
+  - {fileID: 2100000, guid: 2c57afe21422aee46975b24a303e1fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -540,6 +540,7 @@ MonoBehaviour:
   deformDown: {fileID: 2294084696970062556}
   deformSlide: {fileID: 5574261494639507440}
   deformHit: {fileID: 0}
+  material: {fileID: 2100000, guid: 2c57afe21422aee46975b24a303e1fe0, type: 2}
   pivot: {fileID: 4842042263799122238}
   colNormal: {fileID: 9201113695693421541}
   colSlide: {fileID: 772554522512606616}
@@ -887,7 +888,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c19dfbd7b62c6224c9e65c5dae6887ba, type: 2}
+  - {fileID: 2100000, guid: 2c57afe21422aee46975b24a303e1fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1014,7 +1015,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c19dfbd7b62c6224c9e65c5dae6887ba, type: 2}
+  - {fileID: 2100000, guid: 2c57afe21422aee46975b24a303e1fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -121,6 +121,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Impact: 0
     - _Metallic: 1
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -141,8 +142,9 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CurveAmount: {r: -4.2354445, g: -0.84708893, b: 0, a: 0}
+    - _CurveAmount: {r: -1.7748392, g: -0.35496783, b: 0, a: 0}
     - _EmissionColor: {r: 8, g: 4.716981, b: 4.716981, a: 1}
+    - _ImpactColor: {r: 1, g: 1, b: 0, a: 1}
     - _Offset: {r: -7.4307804, g: -1.4861561, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 0, g: 0, b: 0, a: 0}
