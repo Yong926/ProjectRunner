@@ -18,12 +18,8 @@ public class InGameUI : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI tmLife;
 
-    Sequence _seqInfo;
-    Sequence _seqCoin;
-
     void Awake()
     {
-        tmInformation.text = "";
     }
 
     void Update()
@@ -37,18 +33,12 @@ public class InGameUI : MonoBehaviour
 
     public void ShowInfo(string info, float duration = 1f)
     {
+        if (feedbackInformation.IsPlaying)
+            feedbackInformation.StopFeedbacks();
+
+        tmInformation.text = info;
+        feedbackInformation.GetFeedbackOfType<MMF_Pause>().PauseDuration = duration;
         feedbackInformation?.PlayFeedbacks();
-        // tmInformation.transform.localScale = Vector3.zero;
-
-        // if (_seqInfo != null)
-        //     _seqInfo.Kill(true);
-
-        // _seqInfo = DOTween.Sequence().OnComplete(() => tmInformation.transform.localScale = Vector3.zero);
-        // _seqInfo.AppendCallback(() => tmInformation.text = info);
-        // _seqInfo.Append(tmInformation.transform.DOScale(1.2f, duration * 0.1f));
-        // _seqInfo.Append(tmInformation.transform.DOScale(1f, duration * 0.2f));
-        // _seqInfo.AppendInterval(duration * 0.4f);
-        // _seqInfo.Append(tmInformation.transform.DOScale(0f, duration * 0.3f));
     }
 
     void UpdateMileage()
@@ -104,6 +94,5 @@ public class InGameUI : MonoBehaviour
         }
 
         _lastlife = GameManager.life;
-
     }
 }

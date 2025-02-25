@@ -147,7 +147,7 @@ public class TrackManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        uiInGame.ShowInfo($"Go!!");
+        uiInGame.ShowInfo($"Go!!", 1.5f);
 
         GameManager.IsPlaying = true;
     }
