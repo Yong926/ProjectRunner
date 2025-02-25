@@ -24,9 +24,11 @@ public class CollectableManager : MonoBehaviour
 
     [Space(20)]
     [SerializeField, AsRange(0, 100)] Vector2 spawnInterval;
+    [SerializeField] int spawnQuota;
 
     private TrackManager trackMgr;
     private RandomGenerator randomGenerator = new RandomGenerator();
+    private LaneGenerator laneGenerator;
 
     IEnumerator Start()
     {
@@ -36,6 +38,10 @@ public class CollectableManager : MonoBehaviour
             Debug.LogError($"트랙 관리자 없음");
             yield break;
         }
+
+        yield return new WaitForEndOfFrame();
+
+        laneGenerator = new LaneGenerator(trackMgr.laneList.Count, spawnQuota);
 
         foreach (var pool in collectaPools)
             randomGenerator.AddItem(pool);
@@ -82,12 +88,12 @@ public class CollectableManager : MonoBehaviour
 
     (int, Collectable) RandomLanePrefab()
     {
-        int rndLane = Random.Range(0, trackMgr.laneList.Count);
+        int lane = laneGenerator.GetNextLane();
 
         Collectable prefab = randomGenerator.GetRandom().GetItem() as Collectable;
 
         if (prefab == null) return (-1, null);
 
-        return (rndLane, prefab);
+        return (lane, prefab);
     }
 }
