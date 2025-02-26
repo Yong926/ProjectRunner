@@ -6,11 +6,12 @@ public class LaneWave : Lane
 
     private LaneData data;
     private float Amplitude = 1.5f;
-    private float Frequency = 2.5f;
+    private float Frequency = 2f;
     private float elapsed = 0f;
 
     public void Initialize(int maxlane)
     {
+        elapsed = 0f;
         data.maxLane = maxlane;
 
         System.Random random = new System.Random();
@@ -19,8 +20,8 @@ public class LaneWave : Lane
 
     public LaneData GetNextLane()
     {
-        elapsed += 0.1f;
         data.currentY = Mathf.Abs(Mathf.Sin(elapsed * Mathf.PI * Frequency)) * Amplitude;
+        elapsed += 0.1f;
         return data;
     }
 }
