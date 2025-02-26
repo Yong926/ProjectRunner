@@ -5,32 +5,30 @@ public class LaneGenerator
 {
     private List<Lane> lanePatterns = new List<Lane>();
 
-    private int limitQuota = 10;
+    private Vector2 limitQuota;
     private int currentQuota = 0;
     private int laneCount;
 
     [HideInInspector] public Lane currentPattern;
 
-    public LaneGenerator(int Count, int quota)
+    public LaneGenerator(int Count, Vector2 quota)
     {
-        limitQuota = quota;
         laneCount = Count;
-        lanePatterns.Add(new LaneStraight());
-        // lanePatterns.Add(new LaneWave());
+        limitQuota = quota;
 
-        currentPattern = lanePatterns[0];
+        lanePatterns.Add(new LaneStraight());
+        lanePatterns.Add(new LaneWave());
+        lanePatterns.Add(new LaneZigzag());
+
+        SwitchPattern();
     }
 
-    public int GetNextLane()
+    public LaneData GetNextLane()
     {
-        if (currentPattern == null)
-            return -1;
-
         currentQuota++;
 
-        if (currentQuota >= limitQuota)
+        if (currentQuota >= Random.Range((int)limitQuota.x, (int)limitQuota.y))
             SwitchPattern();
-
 
         return currentPattern.GetNextLane();
     }

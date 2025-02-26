@@ -23,8 +23,8 @@ public class CollectableManager : MonoBehaviour
     [SerializeField] float spawnZpos = 60f;
 
     [Space(20)]
-    [SerializeField, AsRange(0, 100)] Vector2 spawnInterval;
-    [SerializeField] int spawnQuota;
+    [SerializeField, AsRange(0, 100)] Vector2 spawnInterval; // 개별 아이템 스폰 간격
+    [SerializeField, AsRange(1, 30)] Vector2 spawnQuota;
 
     private TrackManager trackMgr;
     private RandomGenerator randomGenerator = new RandomGenerator();
@@ -53,7 +53,7 @@ public class CollectableManager : MonoBehaviour
 
     public void SpawnCollectable()
     {
-        (int lane, Collectable prefab) = RandomLanePrefab();
+        (LaneData lane, Collectable prefab) = RandomLanePrefab();
 
         Track t = trackMgr.GetTrackByZ(spawnZpos);
         if (t == null)
@@ -65,7 +65,7 @@ public class CollectableManager : MonoBehaviour
         if (prefab != null)
         {
             var o = Instantiate(prefab, t.CollectableRoot);
-            o.SetLanePosion(lane, spawnZpos, trackMgr);
+            o.SetLanePosion(lane.currentLane, lane.currentY, spawnZpos, trackMgr);
         }
     }
 
@@ -86,13 +86,13 @@ public class CollectableManager : MonoBehaviour
         }
     }
 
-    (int, Collectable) RandomLanePrefab()
+    (LaneData, Collectable) RandomLanePrefab()
     {
-        int lane = laneGenerator.GetNextLane();
+        LaneData lane = laneGenerator.GetNextLane();
 
         Collectable prefab = randomGenerator.GetRandom().GetItem() as Collectable;
 
-        if (prefab == null) return (-1, null);
+        if (prefab == null) return (lane, null);
 
         return (lane, prefab);
     }
