@@ -5,4 +5,11 @@ public struct LaneData
     public int currentLane; // 결정한 현재 레인 인덱스
 
     public float currentY; // 결정한 현재 Y 위치
+
+    public LaneData(int current = -1)
+    {
+        maxLane = -1;
+        currentLane = current;
+        currentY = 0f;
+    }
 }

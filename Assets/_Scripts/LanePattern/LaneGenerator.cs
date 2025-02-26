@@ -10,8 +10,9 @@ public class LaneGenerator
     private int laneCount;
 
     [HideInInspector] public Lane currentPattern;
+    private RandomGenerator randomGenerator = new RandomGenerator();
 
-    public LaneGenerator(int Count, Vector2 quota)
+    public LaneGenerator(int Count, Vector2 quota, List<LanePatternPool> pool)
     {
         laneCount = Count;
         limitQuota = quota;
@@ -19,6 +20,9 @@ public class LaneGenerator
         lanePatterns.Add(new LaneStraight());
         lanePatterns.Add(new LaneWave());
         lanePatterns.Add(new LaneZigzag());
+
+        foreach (var p in pool)
+            randomGenerator.AddItem(p);
 
         SwitchPattern();
     }
@@ -30,16 +34,19 @@ public class LaneGenerator
         if (currentQuota >= Random.Range((int)limitQuota.x, (int)limitQuota.y))
             SwitchPattern();
 
+        if (currentPattern == null)
+            return new LaneData(-1);
+
         return currentPattern.GetNextLane();
     }
 
     public void SwitchPattern(int index = -1)
     {
-        int i = index == -1 ? Random.Range(0, lanePatterns.Count) : Mathf.Clamp(index, 0, lanePatterns.Count - 1);
+        string patternName = randomGenerator.GetRandom().GetItem() as string;
 
-        Lane lanePattern = lanePatterns[i];
+        Lane lanePattern = lanePatterns.Find(f => f.Name == patternName);
         currentPattern = lanePattern;
-        currentPattern.Initialize(laneCount);
+        currentPattern?.Initialize(laneCount);
 
         currentQuota = 0;
     }

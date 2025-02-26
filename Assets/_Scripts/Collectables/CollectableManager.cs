@@ -8,16 +8,28 @@ public class CollectablePool : RandomItem
 {
     public Collectable collectable;
 
-    public override Object GetItem()
+    public override object GetItem()
     {
         return collectable;
     }
 }
-
+[System.Serializable]
+public class LanePatternPool : RandomItem
+{
+    public string patternName;
+    public override object GetItem()
+    {
+        return patternName;
+    }
+}
 public class CollectableManager : MonoBehaviour
 {
     [Space(20)]
     public List<CollectablePool> collectaPools;
+    private RandomGenerator randomGenerator = new RandomGenerator();
+
+    public List<LanePatternPool> lanepatternPools;
+    private LaneGenerator laneGenerator;
 
     [Space(20)]
     [SerializeField] float spawnZpos = 60f;
@@ -27,8 +39,6 @@ public class CollectableManager : MonoBehaviour
     [SerializeField, AsRange(1, 30)] Vector2 spawnQuota;
 
     private TrackManager trackMgr;
-    private RandomGenerator randomGenerator = new RandomGenerator();
-    private LaneGenerator laneGenerator;
 
     IEnumerator Start()
     {
@@ -41,10 +51,13 @@ public class CollectableManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        laneGenerator = new LaneGenerator(trackMgr.laneList.Count, spawnQuota);
-
+        // 아이템들 프리팹과 랜덤 비중 등록
         foreach (var pool in collectaPools)
             randomGenerator.AddItem(pool);
+
+        // 레인의 패턴과 랜덤 비중
+        laneGenerator = new LaneGenerator(trackMgr.laneList.Count, spawnQuota, lanepatternPools);
+
 
         yield return new WaitUntil(() => GameManager.IsPlaying == true);
 
@@ -53,7 +66,7 @@ public class CollectableManager : MonoBehaviour
 
     public void SpawnCollectable()
     {
-        (LaneData lane, Collectable prefab) = RandomLanePrefab();
+        (LaneData lanedata, Collectable prefab) = RandomLanePrefab();
 
         Track t = trackMgr.GetTrackByZ(spawnZpos);
         if (t == null)
@@ -62,10 +75,10 @@ public class CollectableManager : MonoBehaviour
             return;
         }
 
-        if (prefab != null)
+        if (prefab != null && lanedata.currentLane != -1)
         {
             var o = Instantiate(prefab, t.CollectableRoot);
-            o.SetLanePosion(lane.currentLane, lane.currentY, spawnZpos, trackMgr);
+            o.SetLanePosion(lanedata.currentLane, lanedata.currentY, spawnZpos, trackMgr);
         }
     }
 
