@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using CustomInspector;
+using DG.Tweening;
 
 [System.Serializable]
 public class ObstaclePool : RandomItem
@@ -92,5 +93,10 @@ public class ObstacleManager : MonoBehaviour
         if (prefab == null) return (-1, null);
 
         return (rndLane, prefab);
+    }
+
+    public void SetPhase(Phase phase, float duration = 1f)
+    {
+        DOVirtual.Vector2(spawnInterval, phase.obstacleInterval, duration, i => spawnInterval = i).SetEase(Ease.InOutSine);
     }
 }

@@ -68,6 +68,7 @@ public class PlayerControl : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+
         if (other.tag == "Collectable")
         {
             feedbackImpact?.PlayFeedbacks();
@@ -80,6 +81,8 @@ public class PlayerControl : MonoBehaviour
             GameManager.life -= 1;
             GameManager.IsPlaying = false;
         }
+
+        other.enabled = false;
     }
 
     void HandleDirection(int direction)

@@ -1,10 +1,10 @@
 public static class GameManager
 {
     public static bool IsPlaying = false;
-
     public static bool IsGameover = false;
 
     public static double mileage = 0f;
+    public static double mileageEnd;
 
     public static uint coin;
 

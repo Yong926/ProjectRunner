@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class TrackManager : MonoBehaviour
 {
     [Space(20)]
-    [SerializeField] Track trackPrefab;
     [SerializeField] PlayerControl playerprefab;
+    [SerializeField] Track trackPrefab;
+    [SerializeField] GameObject trackstrat, trackEnd;
     [SerializeField] List<Material> CurvedMaterials;
 
     [Space(20)]
@@ -34,18 +36,10 @@ public class TrackManager : MonoBehaviour
     {
         camTransform = Camera.main.transform;
 
-        // var uis = FindObjectsByType<InGameUI>(FindObjectsSortMode.None);
-        // if (uis != null || uis.Length > 0)
-        //     uiInGame = uis[0];
-
-        // uiAny = FindAnyObjectByType<InGameUI>();
-
-        // uiInFirst = FindFirstObjectByType<InGameUI>();
-
         uiInGame = FindFirstObjectByType<InGameUI>();
 
         SpawnInitialTrack();
-
+        SpawnStartZone();
         SpawnPlayer();
 
         StartCoroutine(Countdown());
@@ -56,11 +50,17 @@ public class TrackManager : MonoBehaviour
         if (GameManager.IsPlaying == false)
             return;
 
-        RepositionTrack();
 
+        RepositionTrack();
+        SpawnEndZone();
         BendTrack();
 
         GameManager.mileage += scrollSpeed * Time.smoothDeltaTime;
+    }
+
+    public void SetPhase(Phase phase, float duration = 0.5f)
+    {
+        DOVirtual.Float(scrollSpeed, phase.scrollSpeed, duration, s => scrollSpeed = s).SetEase(Ease.InOutSine);
     }
 
     void SpawnInitialTrack()
@@ -105,6 +105,28 @@ public class TrackManager : MonoBehaviour
     {
         PlayerControl player = Instantiate(playerprefab, Vector3.zero, Quaternion.identity);
         player.trackMgr = this;
+    }
+
+    void SpawnStartZone(float zpos = 3f)
+    {
+        Track t = GetTrackByZ(zpos);
+        GameObject o = Instantiate(trackstrat, t.ObstacleRoot);
+        Vector3 pos = new Vector3(0f, 0f, zpos);
+        o.transform.SetPositionAndRotation(pos, Quaternion.identity);
+    }
+
+    GameObject _EndZone;
+    void SpawnEndZone(float zpos = 60f)
+    {
+        if (_EndZone != null)
+            return;
+        if (GameManager.mileage + zpos < GameManager.mileageEnd)
+            return;
+
+        Track t = GetTrackByZ(zpos);
+        _EndZone = Instantiate(trackEnd, t.ObstacleRoot);
+        Vector3 pos = new Vector3(0f, 0f, zpos);
+        _EndZone.transform.SetPositionAndRotation(pos, Quaternion.identity);
     }
 
     public Track GetTrackByZ(float z)
