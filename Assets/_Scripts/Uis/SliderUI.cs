@@ -46,6 +46,8 @@ public class SliderUI : MonoBehaviour
 
     public void AddIcon(Sprite sprite, float value)
     {
+        if (sprite == null)
+            return;
         Image image = imagepools.Find((i) => i.gameObject.activeSelf == false);
 
         if (image == null)

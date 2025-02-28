@@ -1,8 +1,8 @@
 using UnityEngine;
 using CustomInspector;
 
-[System.Serializable]
-public struct Phase
+[CreateAssetMenu(menuName = "Date/Phase")]
+public class PhaseSO : ScriptableObject
 {
     public string Name;
     [Preview(Size.small)] public Sprite Icon;
@@ -10,5 +10,7 @@ public struct Phase
 
     public float scrollSpeed;
 
-    [AsRange(0, 100)] public Vector2 obstacleInterval;
+
+
+    [Foldout] public ObstacleSO obstacleData;
 }

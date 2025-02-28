@@ -20,10 +20,6 @@ public class InGameUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI tmCoin;
     [SerializeField] TextMeshProUGUI tmLife;
 
-    void Awake()
-    {
-    }
-
     void Update()
     {
         UpdateMileage();
@@ -33,16 +29,17 @@ public class InGameUI : MonoBehaviour
         UpdateLife();
     }
 
-    public void SetMileage(List<Phase> phases)
+    public void SetMileage(List<PhaseSO> phases)
     {
         foreach (var p in phases)
             mileageSliderUI.AddIcon(p.Icon, (float)(p.Mileage / GameManager.mileageEnd));
     }
 
-    public void SetPhase(Phase phase)
+    public void SetPhase(PhaseSO phase)
     {
         ShowInfo(phase.Name);
     }
+
     public void ShowInfo(string info, float duration = 1f)
     {
         if (feedbackInformation.IsPlaying)

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using System;
 
 public class TrackManager : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class TrackManager : MonoBehaviour
         GameManager.mileage += scrollSpeed * Time.smoothDeltaTime;
     }
 
-    public void SetPhase(Phase phase, float duration = 0.5f)
+    public void SetPhase(PhaseSO phase, float duration = 0.5f)
     {
         DOVirtual.Float(scrollSpeed, phase.scrollSpeed, duration, s => scrollSpeed = s).SetEase(Ease.InOutSine);
     }

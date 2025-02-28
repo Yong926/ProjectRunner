@@ -46,4 +46,10 @@ public class RandomGenerator
 
         CalcTotalWeight();
     }
+
+    public void Clear()
+    {
+        items.Clear();
+        totalweight = 0;
+    }
 }

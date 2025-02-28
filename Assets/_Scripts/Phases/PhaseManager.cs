@@ -10,7 +10,7 @@ public class PhaseManager : MonoBehaviour
     [SerializeField] float updateInterval = 1f;
 
     [HorizontalLine("트랙속성"), HideField] public bool _l1;
-    [SerializeField] List<Phase> mileageList = new List<Phase>();
+    [SerializeField, Foldout] List<PhaseSO> phaseList = new List<PhaseSO>();
 
     private TrackManager trkMgr;
     private ObstacleManager obsMgr;
@@ -24,7 +24,7 @@ public class PhaseManager : MonoBehaviour
 
         GetEndLine();
 
-        uiInGame.SetMileage(mileageList);
+        uiInGame.SetMileage(phaseList);
 
         yield return new WaitUntil(() => GameManager.IsPlaying);
         StartCoroutine(IntervalUpdate());
@@ -32,21 +32,21 @@ public class PhaseManager : MonoBehaviour
 
     IEnumerator IntervalUpdate()
     {
-        if (mileageList == null || mileageList.Count <= 0)
+        if (phaseList == null || phaseList.Count <= 0)
             yield break;
 
         int i = 0;
 
         while (true)
         {
-            Phase phase = mileageList[i];
+            PhaseSO phase = phaseList[i];
             if (GameManager.mileage > phase.Mileage)
             {
                 SetPhase(phase);
                 i++;
             }
 
-            if (i == mileageList.Count)
+            if (i == phaseList.Count)
             {
                 GameClear(phase);
                 yield break;
@@ -58,18 +58,18 @@ public class PhaseManager : MonoBehaviour
 
     void GetEndLine()
     {
-        Phase phaseEnd = mileageList.LastOrDefault();
+        PhaseSO phaseEnd = phaseList.LastOrDefault();
         GameManager.mileageEnd = phaseEnd.Mileage;
     }
 
-    void SetPhase(Phase phase)
+    void SetPhase(PhaseSO phase)
     {
         uiInGame?.SetPhase(phase);
         trkMgr?.SetPhase(phase);
         obsMgr?.SetPhase(phase);
     }
 
-    void GameClear(Phase phase)
+    void GameClear(PhaseSO phase)
     {
         SetPhase(phase);
 
