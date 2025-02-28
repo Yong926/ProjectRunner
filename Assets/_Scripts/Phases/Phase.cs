@@ -5,6 +5,7 @@ using CustomInspector;
 public struct Phase
 {
     public string Name;
+    [Preview(Size.small)] public Sprite Icon;
     public uint Mileage;
 
     public float scrollSpeed;

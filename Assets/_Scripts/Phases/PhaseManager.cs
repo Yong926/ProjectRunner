@@ -24,6 +24,8 @@ public class PhaseManager : MonoBehaviour
 
         GetEndLine();
 
+        uiInGame.SetMileage(mileageList);
+
         yield return new WaitUntil(() => GameManager.IsPlaying);
         StartCoroutine(IntervalUpdate());
     }
@@ -62,7 +64,7 @@ public class PhaseManager : MonoBehaviour
 
     void SetPhase(Phase phase)
     {
-        uiInGame?.ShowInfo(phase.Name);
+        uiInGame?.SetPhase(phase);
         trkMgr?.SetPhase(phase);
         obsMgr?.SetPhase(phase);
     }

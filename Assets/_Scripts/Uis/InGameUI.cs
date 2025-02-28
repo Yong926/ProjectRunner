@@ -1,21 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 using TMPro;
 using DG.Tweening;
 using CustomInspector;
 using MoreMountains.Feedbacks;
+using System.Collections.Generic;
 
 public class InGameUI : MonoBehaviour
 {
     [HorizontalLine]
     [SerializeField] TextMeshProUGUI tmInformation;
-
     [SerializeField] MMF_Player feedbackInformation;
 
     [HorizontalLine]
-    [SerializeField] TextMeshProUGUI tmMileage;
-
+    [SerializeField] TextMeshProUGUI mileageText;
+    [SerializeField] Slider mileageSlider;
+    [SerializeField] SliderUI mileageSliderUI;
     [SerializeField] TextMeshProUGUI tmCoin;
-
     [SerializeField] TextMeshProUGUI tmLife;
 
     void Awake()
@@ -31,6 +33,16 @@ public class InGameUI : MonoBehaviour
         UpdateLife();
     }
 
+    public void SetMileage(List<Phase> phases)
+    {
+        foreach (var p in phases)
+            mileageSliderUI.AddIcon(p.Icon, (float)(p.Mileage / GameManager.mileageEnd));
+    }
+
+    public void SetPhase(Phase phase)
+    {
+        ShowInfo(phase.Name);
+    }
     public void ShowInfo(string info, float duration = 1f)
     {
         if (feedbackInformation.IsPlaying)
@@ -48,14 +60,16 @@ public class InGameUI : MonoBehaviour
             long intpart = (long)GameManager.mileage;
             int decpart = (int)((GameManager.mileage - intpart) * 10);
 
-            tmMileage.text = $"{intpart}<size=80%>.{decpart}</size><size=60%>m</size>";
+            mileageText.text = $"{intpart}<size=80%>.{decpart}</size><size=60%>m</size>";
         }
         else
         {
             ((long)GameManager.mileage).ToStringKilo(out string intpart, out string decpart, out string unitpart);
 
-            tmMileage.text = $"{intpart}<size=80%>{decpart}{unitpart}</size><size=60%>m</size>";
+            mileageText.text = $"{intpart}<size=80%>{decpart}{unitpart}</size><size=60%>m</size>";
         }
+
+        mileageSlider.value = (float)(GameManager.mileage / GameManager.mileageEnd);
     }
 
     private uint _lastcoin;
