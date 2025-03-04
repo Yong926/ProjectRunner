@@ -26,7 +26,7 @@ public class SliderUI : MonoBehaviour
     private RectTransform sliderRect;
 
 
-    void Start()
+    void Awake()
     {
         sliderRect = slider.GetComponent<RectTransform>();
     }

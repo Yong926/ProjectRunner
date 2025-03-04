@@ -67,6 +67,7 @@ public class InGameUI : MonoBehaviour
         }
 
         mileageSlider.value = (float)(GameManager.mileage / GameManager.mileageEnd);
+        //mileageText. = (float)(GameManager.mileage / GameManager.mileageEnd);
     }
 
     private uint _lastcoin;

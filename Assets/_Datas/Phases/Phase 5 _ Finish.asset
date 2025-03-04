@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Phase 5 _ Finish
   m_EditorClassIdentifier: 
   Name: "\uB05D"
-  Icon: {fileID: 21300000, guid: 6f7cf9eabe95e4550bf1c5033c4fac6f, type: 3}
-  Mileage: 10000
+  Icon: {fileID: 21300000, guid: 6c110e52af6524f0a98a1b3815026a78, type: 3}
+  Mileage: 4000
   scrollSpeed: 0
-  obstacleData: {fileID: 0}
+  obstacleData: {fileID: 11400000, guid: 0b4393983f8e592469b05f73934bdda0, type: 2}
