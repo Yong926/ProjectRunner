@@ -40,11 +40,12 @@ public class LaneGenerator
         return currentPattern.GetNextLane();
     }
 
-    public void SwitchPattern(int index = -1)
+    public void SwitchPattern()
     {
-        string patternName = randomGenerator.GetRandom().GetItem() as string;
+        // string <-> enum 변환 가능
+        LaneType laneType = (LaneType)randomGenerator.GetRandom().GetItem();
 
-        Lane lanePattern = lanePatterns.Find(f => f.Name == patternName);
+        Lane lanePattern = lanePatterns.Find(f => f.laneType == laneType);
         currentPattern = lanePattern;
         currentPattern?.Initialize(laneCount);
 

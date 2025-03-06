@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25738d62698c16a4ab4c347a3cc02032, type: 3}
   m_Name: Phase 2
   m_EditorClassIdentifier: 
-  Name: "\uC26C\uC6C0"
+  Name: "\uB808\uBCA8\uC5C5!"
   Icon: {fileID: 0}
-  Mileage: 1000
-  scrollSpeed: 20
-  obstacleData: {fileID: 11400000, guid: 2ac95b23f304c9a46a7dde6431ad5232, type: 2}
+  Mileage: 300
+  scrollSpeed: 16
+  obstacleData: {fileID: 11400000, guid: 2eff513d24da4634b9f8c4046308ce33, type: 2}
+  CollectableData: {fileID: 11400000, guid: f6d1bd2d684a6f4418331bb1f99ede21, type: 2}

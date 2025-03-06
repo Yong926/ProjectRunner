@@ -48,7 +48,7 @@ public class TrackManager : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.IsPlaying == false)
+        if (GameManager.IsPlaying == false || GameManager.IsGameover == true)
             return;
 
 

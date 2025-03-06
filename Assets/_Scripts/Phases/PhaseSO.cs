@@ -11,6 +11,8 @@ public class PhaseSO : ScriptableObject
     public float scrollSpeed;
 
 
-
+    // 장애물
     [Foldout] public ObstacleSO obstacleData;
+    // 아이템
+    [Foldout] public CollectableSO CollectableData;
 }

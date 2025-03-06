@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using CustomInspector;
+using DG.Tweening;
 
 [System.Serializable]
 public class CollectablePool : RandomItem
@@ -13,31 +13,27 @@ public class CollectablePool : RandomItem
         return collectable;
     }
 }
+
 [System.Serializable]
 public class LanePatternPool : RandomItem
 {
-    public string patternName;
+    public LaneType patternType;
     public override object GetItem()
     {
-        return patternName;
+        return patternType;
     }
 }
 public class CollectableManager : MonoBehaviour
 {
     [Space(20)]
-    public List<CollectablePool> collectaPools;
-    private RandomGenerator randomGenerator = new RandomGenerator();
-
-    public List<LanePatternPool> lanepatternPools;
-    private LaneGenerator laneGenerator;
-
-    [Space(20)]
     [SerializeField] float spawnZpos = 60f;
 
     [Space(20)]
-    [SerializeField, AsRange(0, 100)] Vector2 spawnInterval; // 개별 아이템 스폰 간격
-    [SerializeField, AsRange(1, 30)] Vector2 spawnQuota;
+    [SerializeField, ReadOnly, AsRange(0, 100)] Vector2 spawnInterval;
 
+    private CollectableSO data;
+    private RandomGenerator randomGenerator = new RandomGenerator();
+    private LaneGenerator laneGenerator;
     private TrackManager trackMgr;
 
     IEnumerator Start()
@@ -49,16 +45,6 @@ public class CollectableManager : MonoBehaviour
             yield break;
         }
 
-        yield return new WaitForEndOfFrame();
-
-        // 아이템들 프리팹과 랜덤 비중 등록
-        foreach (var pool in collectaPools)
-            randomGenerator.AddItem(pool);
-
-        // 레인의 패턴과 랜덤 비중
-        laneGenerator = new LaneGenerator(trackMgr.laneList.Count, spawnQuota, lanepatternPools);
-
-
         yield return new WaitUntil(() => GameManager.IsPlaying == true);
 
         StartCoroutine(InfiniteSpawn());
@@ -66,6 +52,8 @@ public class CollectableManager : MonoBehaviour
 
     public void SpawnCollectable()
     {
+        if (data == null)
+            return;
         (LaneData lanedata, Collectable prefab) = RandomLanePrefab();
 
         Track t = trackMgr.GetTrackByZ(spawnZpos);
@@ -88,7 +76,7 @@ public class CollectableManager : MonoBehaviour
 
         while (true)
         {
-            yield return new WaitUntil(() => GameManager.IsPlaying);
+            yield return new WaitUntil(() => GameManager.IsPlaying && data != null);
 
             if (GameManager.mileage - lastMileage > Random.Range(spawnInterval.x, spawnInterval.y))
             {
@@ -108,5 +96,31 @@ public class CollectableManager : MonoBehaviour
         if (prefab == null) return (lane, null);
 
         return (lane, prefab);
+    }
+
+    public void SetPhase(PhaseSO phase, float duration = 1f)
+    {
+        if (phase.CollectableData == null)
+        {
+            randomGenerator.Clear();
+            return;
+        }
+
+        data = phase.CollectableData;
+
+        randomGenerator.Clear();
+
+        foreach (var pool in data.collectablePools)
+            randomGenerator.AddItem(pool);
+
+        laneGenerator = new LaneGenerator(trackMgr.laneList.Count, data.quota, data.lanepatternPools);
+
+        DOVirtual.Vector2(spawnInterval, data.interval, duration, i => spawnInterval = i).SetEase(Ease.InOutSine);
+    }
+
+    public void ClearCollectables()
+    {
+        data = null;
+        randomGenerator.Clear();
     }
 }

@@ -1,6 +1,9 @@
+
+public enum LaneType { EMPTY, STRAIGHT, WAVE, ZIGZAG }
+
 public interface Lane
 {
-    public string Name { get; }
+    public LaneType laneType { get; }
     public void Initialize(int maxlane);
     public LaneData GetNextLane();
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 using TMPro;
 using DG.Tweening;
@@ -22,10 +23,11 @@ public class InGameUI : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.IsGameover == true)
+            return;
+
         UpdateMileage();
-
         UpdateCoins();
-
         UpdateLife();
     }
 
@@ -67,12 +69,10 @@ public class InGameUI : MonoBehaviour
         }
 
         mileageSlider.value = (float)(GameManager.mileage / GameManager.mileageEnd);
-        //mileageText. = (float)(GameManager.mileage / GameManager.mileageEnd);
     }
 
     private uint _lastcoin;
     private Tween _tweencoin;
-
     void UpdateCoins()
     {
 
@@ -102,7 +102,9 @@ public class InGameUI : MonoBehaviour
         if (GameManager.life <= 0)
         {
             ShowInfo("GAME OVER", 5f);
+
             GameManager.IsGameover = true;
+            DOVirtual.DelayedCall(5f, () => SceneManager.LoadScene(0));
         }
 
         _lastlife = GameManager.life;

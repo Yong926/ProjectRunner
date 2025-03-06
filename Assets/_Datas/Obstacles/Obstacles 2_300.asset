@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a7f0a7b918e9241a0f714bbe6d9259, type: 3}
+  m_Name: Obstacles 2_300
+  m_EditorClassIdentifier: 
+  pools:
+  - name: Empty
+    weight: 1
+    obstacleList: []
+  - name: Single
+    weight: 1
+    obstacleList:
+    - {fileID: 3415249193325728049, guid: 2bac0b6fc299033498799286aa34134d, type: 3}
+    - {fileID: 5944640264620497958, guid: 2066adf814eb94a40a3f03e3e8838e32, type: 3}
+    - {fileID: 2523081229711108865, guid: 7d1e3dec84a779d46a6a87b17b33260c, type: 3}
+    - {fileID: 5362606173257035460, guid: d141f53994dd90344b356e276f321204, type: 3}
+  interval: {x: 24, y: 24}

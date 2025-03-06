@@ -21,8 +21,8 @@ public class SliderUI : MonoBehaviour
     [SerializeField] Image handleIcon;
 
     [SerializeField] List<Image> imagepools;
-    public List<Icon> icons;
 
+    public List<Icon> icons;
     private RectTransform sliderRect;
 
 
@@ -34,6 +34,9 @@ public class SliderUI : MonoBehaviour
     float elapsed = 0f;
     void Update()
     {
+        if (GameManager.IsPlaying == false || GameManager.IsGameover == true)
+            return;
+
         SetPosition(handleIcon, slider.normalizedValue);
 
         elapsed += Time.deltaTime;
@@ -48,6 +51,7 @@ public class SliderUI : MonoBehaviour
     {
         if (sprite == null)
             return;
+
         Image image = imagepools.Find((i) => i.gameObject.activeSelf == false);
 
         if (image == null)
@@ -74,8 +78,6 @@ public class SliderUI : MonoBehaviour
     public void SetAllPosition()
     {
         foreach (Icon i in icons)
-        {
             SetPosition(i.Image, i.value);
-        }
     }
 }

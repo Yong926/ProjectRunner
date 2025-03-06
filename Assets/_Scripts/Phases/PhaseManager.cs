@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using CustomInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 
 public class PhaseManager : MonoBehaviour
 {
@@ -14,13 +16,21 @@ public class PhaseManager : MonoBehaviour
 
     private TrackManager trkMgr;
     private ObstacleManager obsMgr;
+    private CollectableManager colMgr;
     private InGameUI uiInGame;
 
     IEnumerator Start()
     {
+        GameManager.Reset();
+
         trkMgr = FindFirstObjectByType<TrackManager>();
+        yield return new WaitUntil(() => trkMgr != null);
         obsMgr = FindFirstObjectByType<ObstacleManager>();
+        yield return new WaitUntil(() => obsMgr != null);
+        colMgr = FindFirstObjectByType<CollectableManager>();
+        yield return new WaitUntil(() => colMgr != null);
         uiInGame = FindFirstObjectByType<InGameUI>();
+        yield return new WaitUntil(() => uiInGame != null);
 
         GetEndLine();
 
@@ -67,6 +77,7 @@ public class PhaseManager : MonoBehaviour
         uiInGame?.SetPhase(phase);
         trkMgr?.SetPhase(phase);
         obsMgr?.SetPhase(phase);
+        colMgr?.SetPhase(phase);
     }
 
     void GameClear(PhaseSO phase)
@@ -75,5 +86,6 @@ public class PhaseManager : MonoBehaviour
 
         GameManager.IsPlaying = false;
         GameManager.IsGameover = true;
+        DOVirtual.DelayedCall(5f, () => SceneManager.LoadScene(0));
     }
 }

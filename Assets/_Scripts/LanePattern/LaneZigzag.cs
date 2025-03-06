@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LaneZigzag : Lane
 {
-    public string Name => "ZigzagPattern";
+    public LaneType laneType => LaneType.ZIGZAG;
     private int elapsed = 0;
 
     private LaneData data;
@@ -11,6 +11,7 @@ public class LaneZigzag : Lane
     {
         data.maxLane = maxlane;
     }
+
     public LaneData GetNextLane()
     {
         data.currentLane = (int)Mathf.PingPong(elapsed++, data.maxLane - 1);
