@@ -144,7 +144,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CurveAmount: {r: -0.9239611, g: -0.18479222, b: 0, a: 0}
+    - _CurveAmount: {r: -1.1707217, g: -0.23414433, b: 0, a: 0}
     - _EmissionColor: {r: 8, g: 4.716981, b: 4.716981, a: 1}
     - _FresnelColor: {r: 3.9790576, g: 3.4329123, b: 1.6329153, a: 1}
     - _ImpactColor: {r: 1, g: 1, b: 0.47058824, a: 1}
